@@ -1,0 +1,16 @@
+extends ./layout.pug
+
+block content
+  section.posts
+    div.container.text-right
+      a(href="#").text-faded view all
+      div.row
+        div.col-lg-8.col-lg-offset-2.text-center
+          h2.section-heading #{post.title}
+          
+          hr.light
+          
+          p.text-faded
+            | #{post.description}
+          div.article
+            | #{post.description}

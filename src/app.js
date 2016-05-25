@@ -5,21 +5,26 @@ const posts = require('./mock/posts.json');
 
 let app = express();
 
+//static server
+app.use('/static', express.static(__dirname + '/public'))
+
+//sets Pug as template engine
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 
 //routes
 app.get('/', (req, res) => {
-  res.render('index');
+  const path = req.path;
+  res.render('index', {path: path});
 });
 
 app.get('/blog/:id?', (req, res) => {
   const id = req.params.id;
   if (id === undefined) {
-    res.send(posts);
+    res.render('blog', {posts: posts});
   } else {
-    const post = posts[id];
-    res.send(post);
+    const post = posts[id] || {};
+    res.render('post', {post: post});
   }
 });
 
